@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import {useField, FormikProps, Form, Formik, FieldAttributes} from 'formik';
+import FormTextField from "./components/formTextField";
+import {FormikProps, Form, Formik} from 'formik';
 import validationSchema from "./validation";
 import {Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
@@ -12,32 +12,6 @@ interface Values {
     password: string
 }
 
-interface TextFieldProps {
-    label: string,
-    id: string,
-    type: string,
-    fullWidth: boolean,
-    className: string
-}
-
-
-
-const MyTextField = ({ label, id, type, fullWidth, className, ...props }: TextFieldProps & FieldAttributes<{}>) => {
-    const [field, meta, helpers] = useField(props);
-    return (
-            <TextField
-                id={id}
-                label={label}
-                type={type}
-                fullWidth
-                variant="outlined"
-                className={className}
-                {...field}
-                error={!!(meta.touched && meta.error)}
-                helperText={meta.touched && meta.error ? meta.error : null}
-            />
-    );
-};
 
 const useStyles = makeStyles({
     root: {
@@ -84,7 +58,7 @@ const LoginForm = () => {
             >
                 {(props: FormikProps<Values>) => (
                     <Form className={classes.form}>
-                        <MyTextField
+                        <FormTextField
                             name="email"
                             id="email"
                             label="Email"
@@ -92,7 +66,7 @@ const LoginForm = () => {
                             fullWidth
                             className={classes.textField}
                         />
-                        <MyTextField
+                        <FormTextField
                             name="password"
                             id="password"
                             label="Password"
