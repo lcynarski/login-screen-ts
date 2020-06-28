@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {FieldAttributes, useField} from "formik";
 import TextField from "@material-ui/core/TextField";
 
@@ -8,11 +8,19 @@ interface TextFieldProps {
     id: string,
     type: string,
     fullWidth: boolean,
-    className: string
+    className: string,
+    isLoginError?: boolean
 }
 
-const FormTextField = ({ label, id, type, fullWidth, className, ...props }: TextFieldProps & FieldAttributes<{}>) => {
+const FormTextField = ({ label, id, type, fullWidth, isLoginError = false, className, ...props }: TextFieldProps & FieldAttributes<{}>) => {
     const [field, meta] = useField(props);
+
+    const helperText = useMemo(() => {
+        if (meta.touched && meta.error) return meta.error;
+        if (isLoginError) return 'Selected email or password does not exist';
+        return null;
+    }, [meta.touched, meta.error, isLoginError]);
+
     return (
         <TextField
             id={id}
@@ -23,7 +31,7 @@ const FormTextField = ({ label, id, type, fullWidth, className, ...props }: Text
             className={className}
             {...field}
             error={!!(meta.touched && meta.error)}
-            helperText={meta.touched && meta.error ? meta.error : null}
+            helperText={helperText}
         />
     );
 };

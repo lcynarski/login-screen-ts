@@ -1,10 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import Button from "@material-ui/core/Button";
 import FormTextField from "./components/formTextField";
 import {FormikProps, Form, Formik} from 'formik';
 import validationSchema from "./validation";
 import {Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import axios from "axios"
+import { useHistory } from "react-router-dom";
 
 
 interface Values {
@@ -36,7 +38,12 @@ const useStyles = makeStyles({
     }
 });
 
+const API_URL = 'https://iqot98h9u0.execute-api.eu-west-1.amazonaws.com/default/';
+
 const LoginForm = () => {
+    const [loggingInProgress, setLoggingInProgress] = useState(false);
+    const [loginError, setLoginError] = useState(false);
+    const history = useHistory();
     const classes = useStyles();
 
     const initialValues = {
@@ -50,10 +57,18 @@ const LoginForm = () => {
             <Formik
                 initialValues={initialValues}
                 onSubmit={(values, actions) => {
-                    setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
-                    actions.setSubmitting(false);
-                }, 1000)}}
+                    setLoggingInProgress(true);
+                    axios.post(API_URL, {
+                        email: values.email,
+                        password: values.password
+                    })
+                        .then((resp) => {
+                            if (loginError) setLoginError(false);
+                            history.push("/home");
+                    })
+                        .catch(() => setLoginError(true))
+                        .finally(() => setLoggingInProgress(false));
+                }}
                 validationSchema={validationSchema}
             >
                 {(props: FormikProps<Values>) => (
@@ -64,6 +79,7 @@ const LoginForm = () => {
                             label="Email"
                             type="text"
                             fullWidth
+                            isLoginError={loginError}
                             className={classes.textField}
                         />
                         <FormTextField
