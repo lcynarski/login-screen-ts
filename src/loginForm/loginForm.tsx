@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import { useHistory } from "react-router-dom";
 import {FormikProps, Form, Formik} from 'formik';
 import axios from "axios"
@@ -8,6 +8,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import {makeStyles} from "@material-ui/core/styles";
 import FormTextField from "./components/formTextField";
 import validationSchema from "./validation";
+import AuthContext from "../authContext";
 
 
 interface Values {
@@ -47,6 +48,7 @@ const API_URL = 'https://iqot98h9u0.execute-api.eu-west-1.amazonaws.com/default/
 const LoginForm = () => {
     const [loggingInProgress, setLoggingInProgress] = useState(false);
     const [loginError, setLoginError] = useState(false);
+    const {setAuthenticated} = useContext(AuthContext);
     const history = useHistory();
     const classes = useStyles();
 
@@ -68,9 +70,13 @@ const LoginForm = () => {
                     })
                         .then((resp) => {
                             if (loginError) setLoginError(false);
+                            setAuthenticated(true);
                             history.push("/home");
                     })
-                        .catch(() => setLoginError(true))
+                        .catch(() => {
+                            setLoginError(true);
+                            setAuthenticated(false);
+                        })
                         .finally(() => setLoggingInProgress(false));
                 }}
                 validationSchema={validationSchema}
