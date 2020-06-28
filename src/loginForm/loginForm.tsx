@@ -1,12 +1,13 @@
 import React, {useState} from "react";
-import Button from "@material-ui/core/Button";
-import FormTextField from "./components/formTextField";
-import {FormikProps, Form, Formik} from 'formik';
-import validationSchema from "./validation";
-import {Paper} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
-import axios from "axios"
 import { useHistory } from "react-router-dom";
+import {FormikProps, Form, Formik} from 'formik';
+import axios from "axios"
+import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import {makeStyles} from "@material-ui/core/styles";
+import FormTextField from "./components/formTextField";
+import validationSchema from "./validation";
 
 
 interface Values {
@@ -31,6 +32,9 @@ const useStyles = makeStyles({
         padding: '30px 0'
     },
     form: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
         width: '100%'
     },
     textField: {
@@ -90,14 +94,18 @@ const LoginForm = () => {
                             fullWidth
                             className={classes.textField}
                         />
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="secondary"
-                            fullWidth={true}
-                        >
-                            Log In
-                        </Button>
+                        {loggingInProgress ?
+                            <CircularProgress color="secondary" /> :
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="secondary"
+                                fullWidth={true}
+                                disabled={loggingInProgress}
+                            >
+                                Log In
+                            </Button>
+                        }
                     </Form>
                 )}
             </Formik>
