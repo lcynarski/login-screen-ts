@@ -6,6 +6,8 @@ import background from "../assets/background-0.jpg";
 const useStyles = makeStyles({
     root: {
         background: `url(${background}) center`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
         height: '100vh',
         display: 'flex',
         flexGrow: 1,

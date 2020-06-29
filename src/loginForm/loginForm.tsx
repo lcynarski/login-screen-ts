@@ -27,7 +27,12 @@ const useStyles = makeStyles({
         borderRadius: 6,
         padding: '20px 30px 0',
         width: 600,
-        height: 440
+        height: 440,
+        "@media only screen and (max-width: 600px)": {
+            opacity: 0.9,
+            height: "100%",
+            width: "100%"
+        }
     },
     header: {
         padding: '30px 0'
