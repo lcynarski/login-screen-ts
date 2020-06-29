@@ -62,6 +62,23 @@ const LoginForm = () => {
             password: ''
     }
 
+    const logIn = (values: Values) => {
+        axios.post(API_URL, {
+            email: values.email,
+            password: values.password
+        })
+            .then((resp) => {
+                if (loginError) setLoginError(false);
+                setAuthenticated(true);
+                history.push("/home");
+            })
+            .catch((res) => {
+                setLoginError(true);
+                setAuthenticated(false);
+            })
+            .finally(() => setLoggingInProgress(false));
+    }
+
     return (
         <Paper className={classes.root}>
             <h1 className={classes.header}>Welcome to our solution</h1>
@@ -69,20 +86,7 @@ const LoginForm = () => {
                 initialValues={initialValues}
                 onSubmit={(values, actions) => {
                     setLoggingInProgress(true);
-                    axios.post(API_URL, {
-                        email: values.email,
-                        password: values.password
-                    })
-                        .then((resp) => {
-                            if (loginError) setLoginError(false);
-                            setAuthenticated(true);
-                            history.push("/home");
-                    })
-                        .catch(() => {
-                            setLoginError(true);
-                            setAuthenticated(false);
-                        })
-                        .finally(() => setLoggingInProgress(false));
+                    logIn(values);
                 }}
                 validationSchema={validationSchema}
             >
@@ -112,6 +116,7 @@ const LoginForm = () => {
                                 variant="contained"
                                 color="secondary"
                                 fullWidth={true}
+                                role="submit"
                                 disabled={loggingInProgress}
                             >
                                 Log In
