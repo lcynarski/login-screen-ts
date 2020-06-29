@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useContext, useState} from 'react';
+import React, {FunctionComponent, useContext} from 'react';
 import AuthContext from "../authContext";
 import {Redirect, Route, Switch} from "react-router-dom";
 import AppScreen from "../appScreen/AppScreen";
