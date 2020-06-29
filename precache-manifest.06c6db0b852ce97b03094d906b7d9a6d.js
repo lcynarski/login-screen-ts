@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "842613430ea238abe1da62f8d4a452c5",
+    "revision": "7980be2621b46307d7132b70b3c13ffb",
     "url": "/login-screen-ts/index.html"
   },
   {
-    "revision": "d79849068287cbe1bafe",
+    "revision": "a4ae0ec96af27b86ecdb",
     "url": "/login-screen-ts/static/css/main.5ecd60fb.chunk.css"
   },
   {
-    "revision": "7a25acfca12ce6b1b4b9",
-    "url": "/login-screen-ts/static/js/2.36df62f3.chunk.js"
+    "revision": "8bb8ebb0a4358b5f917d",
+    "url": "/login-screen-ts/static/js/2.a9bec667.chunk.js"
   },
   {
     "revision": "e2896a34bc173bbd7b6d83453e91d5e1",
-    "url": "/login-screen-ts/static/js/2.36df62f3.chunk.js.LICENSE.txt"
+    "url": "/login-screen-ts/static/js/2.a9bec667.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "d79849068287cbe1bafe",
-    "url": "/login-screen-ts/static/js/main.1981a18a.chunk.js"
+    "revision": "a4ae0ec96af27b86ecdb",
+    "url": "/login-screen-ts/static/js/main.a2bae8bd.chunk.js"
   },
   {
     "revision": "207137a0188e096185be",
