@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {
-    BrowserRouter as Router,
+    HashRouter as Router
 } from "react-router-dom";
 import AuthContext from "./authContext";
 import Routes from "./routing/routes";
